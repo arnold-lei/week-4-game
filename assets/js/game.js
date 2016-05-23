@@ -1,13 +1,8 @@
-$( document ).ready(function() {
-
-
-  var a = new Player();
-
-
-  // var b = new Player();
-  // b.init('Jenny');
-
-  // displays player stats
-  printStats(a,'.playerStats')
-
+$(document).ready( function(){
+  var a = new char('Arnold', d(6), d(6), d(6), d(6), d(6), d(20));
+  var b = new char('Jenny', d(6), d(6), d(6), d(6), d(6), d(20));
+  printStats(a, '.playerStats');
 });
+
+
+

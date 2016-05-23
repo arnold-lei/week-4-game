@@ -39,32 +39,8 @@ function printStats(obj, selector){
 // }
 
 // Player class, all the characters and NPC will use this as a basis of creation
-// Player class, all the characters and NPC will use this as a basis of creation
-function Player() {
-  return new Player.init();
-   
-}
-
-//   self.attack = function(target){
-//       var roll = d(20);
-//       console.log(self.name + ' attacked ' + target.name);
-//       console.log('You rolled a ' + roll);
-//       var damage = (self.str + roll - target.ac);
-//       return damage;
-//   },
-
-//   self.furiousStrike = function(target){
-//       var roll = advantage(20,2);
-//       console.log(self.name + ' attacked ' + target.name);
-//       console.log('You rolled a ' + roll);
-//       var damage = (self.str + roll - target.ac);
-//       console.log(damage);
-//   }
-
-// }
-
-Player.init = function(name, vit, str, dex, int, ac, fury){
-  var self = this;
+function char(name, vit, str, dex, int, ac, fury){
+  var self = this; 
   self.name = name || 'npc';
   self.vit = vit || 20;
   self.str = str || 5;
@@ -73,13 +49,37 @@ Player.init = function(name, vit, str, dex, int, ac, fury){
   self.ac = ac || 17;
   self.fury = fury || 30;
   console.log(name, vit, str, dex, int, ac);
+
+    self.attack = function(target){
+      var roll = d(20);
+      console.log(self.name + ' attacked ' + target.name);
+      console.log('You rolled a ' + roll);
+      var damage = (self.str + roll - target.ac);
+      return damage;
+  },
+
+  self.furiousStrike = function(target){
+      var roll = advantage(20,2);
+      console.log(self.name + ' attacked ' + target.name);
+      console.log('You rolled a ' + roll);
+      var damage = (self.str + roll - target.ac);
+      console.log(damage);
+  }
+}
+
+char.prototype = {
+  test: function(){
+    console.log(this.name);
+  }
 }
 
 
 
 
-// var Sephiroth = new Player;
-// Sephiroth.init(100, 1000, 'villan');
+var a = new char('Arnold', d(6), d(6), d(6), d(6), d(6), d(20));
 
-// Arnold.attack(Sephiroth.health);
+
+
+var b = new char('Jenny', d(6), d(6), d(6), d(6), d(6), d(20));
+
 
