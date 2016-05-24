@@ -13,10 +13,13 @@
 </head>
 <body>
   <div class="container">
+    <h1>Arnold's RPG</h1>
     <div class="row">
       <!-- Player Panel -->
       <div class="col-md-6">
-        <h1>Player Stats</h1>
+        <div class="portrait playerPortrait">
+          <img src="assets/img/8_bit_knight.png">
+        </div>
         <div class="playerStats">
           <div class="playerName">
           </div>
@@ -25,14 +28,19 @@
         </div>
         HP:
         <div class="progress">
-          <div class="progress-bar-danger progress-bar" id="healthBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="width: 10%;">
+          <div class="progress-bar-danger progress-bar" id="healthBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="">
             Health Bar
           </div>
-      </div>
+        </div>
+        Fury:
+        <div class="progress">
+          <div class="progress-bar-warning progress-bar" id="furyBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="">
+            Fury Bar
+          </div>
+        </div>
     </div>
-    <!-- Enemy Panel -->
-    <div class="col-md-6">
-      <h1>Oponent Stats</h1>
+    <!-- !!!!!!!!!!!!Enemy Panel !!!!!!!!!!!!!-->
+    <div class="col-md-6 ">
         <div class="npcStats">
           <div class="npcName"><h1>Name</h1>
           </div>
@@ -46,10 +54,22 @@
         </div>
       </div>
     </div>
+    <div class="portrait npcPortrait pull-right">
+      <img src="assets/img/monster-1.png">
+    </div>
+    <div class="row">
+      <div class="col-md-12 skillBar">
+        <div class="btn-group  btn-group-lg " role="group" aria-label="..." id="skills">
+          <button type="button" class="btn btn-default" onclick="a.attack(b)">Attack</button>
+          <button type="button" class="btn btn-default">Furious Strike</button>
+          <button type="button" class="btn btn-default">Flurry</button>
+          <button type="button" class="btn btn-default">Defend</button>
+        </div>
+      </div>
+    </div>
     <div class="row">
       <div class="col-md-12 messagePanel">
         <div class="message">
-            Hello world
         </div>
       </div>
     </div>

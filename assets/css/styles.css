@@ -26,3 +26,25 @@ h1,h2{
     border-style: solid;
     border-width: 3px;
 }
+
+.skillBar{
+  margin:0 auto;
+}
+
+#skills{
+  margin:5% 0;
+}
+
+.npcStats{
+  text-align: right;
+}
+
+.portrait{
+  margin: 2em, auto;
+
+}
+
+.portrait img{
+  width:300px;
+
+}

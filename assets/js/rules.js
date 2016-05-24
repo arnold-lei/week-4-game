@@ -58,6 +58,11 @@ function setHealth(char,id ){
   $(id).html((char.vit - char.damage) + '/' + char.vit)
 }
 
+function setFury(char,id ){
+  $(id).css('width', (char.getFury));
+  $(id).html(char.currentFury + '/' + char.fury);
+}
+
 // Creates a character object, all the characters and NPC will use this as a basis of creation
 function char(name, vit, str, dex, int, ac, fury){
   var self = this; 
@@ -79,7 +84,8 @@ function char(name, vit, str, dex, int, ac, fury){
   },
 
   self.getFury = function(){
-    return ((self.currentFury/self.fury) * 100);
+    var fury = ((self.currentFury/self.fury) * 100);
+    return fury + '%'
   },
 
   self.attack = function(target){
@@ -92,10 +98,12 @@ function char(name, vit, str, dex, int, ac, fury){
       // creates the message
       msg.push(self.name + ' attacked ' + target.name);
       msg.push(self.name + ' rolled a ' + roll);
-      msg.push(self.name + ' dealt ' + damage + ' to ' + target.name)
+      msg.push(self.name + ' dealt ' + damage + ' damage to ' + target.name)
       // prints the message to the game board
       print(msg)
       target.damage = target.damage + damage;
+      setHealth(target,'#npcHealthBar');
+      setFury(self, '#furyBar');
     }else if ((self.str + roll) < target.ac){
       msg.push(self.name + ' attacked ' + target.name + ' and it did no damage');
       print(msg)
@@ -110,7 +118,7 @@ function char(name, vit, str, dex, int, ac, fury){
     if((self.str + roll) > target.ac){
       damage = ((self.str + roll) - target.ac);
       // creates the message
-      msg.push(self.name + ' used' + this);
+      msg.push(self.name + ' used Furious Strike!');
       msg.push(self.name + ' attacked ' + target.name);
       msg.push(self.name + ' rolled a ' + roll);
       msg.push(self.name + ' dealt ' + damage + ' to ' + target.name)
