@@ -9,11 +9,17 @@
   <!-- Latest compiled and minified CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
 
+  <link rel="stylesheet" type="text/css" href="assets/css/rpg-icons.css">
+
   <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 </head>
 <body>
   <div class="container">
-    <h1>Arnold's RPG</h1>
+    <div><h1><span aria-hidden="true" class="rpg-Icon1_03"></span>
+      &nbsp;
+      </span>
+      D n' D Lite</h1>
+    </div>
     <div class="row">
       <!-- Player Panel -->
       <div class="col-md-6">
@@ -29,7 +35,7 @@
         HP:
         <div class="progress">
           <div class="progress-bar-danger progress-bar" id="healthBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="">
-            Health Bar
+            Health Bar 
           </div>
         </div>
         Fury:
@@ -60,10 +66,10 @@
     <div class="row">
       <div class="col-md-12 skillBar">
         <div class="btn-group  btn-group-lg " role="group" aria-label="..." id="skills">
-          <button type="button" class="btn btn-default" onclick="a.attack(b)">Attack</button>
-          <button type="button" class="btn btn-default">Furious Strike</button>
-          <button type="button" class="btn btn-default">Flurry</button>
-          <button type="button" class="btn btn-default">Defend</button>
+          <button type="button" class="btn btn-default" onclick="a.attack(b)"><div class="fs1" aria-hidden="true" data-icon="&#xe00a;"></div>Attack</button>
+          <button type="button" class="btn btn-default"><div class="fs1" aria-hidden="true" data-icon="&#xe099;"></div>Furious Strike</button>
+          <button type="button" class="btn btn-default"><div class="fs1" aria-hidden="true" data-icon="&#xe09a;"></div>Flurry</button>
+          <button type="button" class="btn btn-default"><div class="fs1" aria-hidden="true" data-icon="&#xe170;"></div>Defend</button>
         </div>
       </div>
     </div>
