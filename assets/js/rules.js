@@ -86,6 +86,7 @@ function char(name, vit, str, dex, int, ac, fury){
     var msg = [];
     var roll = d(20);
     var damage;
+    self.currentFury = self.currentFury + d(6);
     if((self.str + roll) > target.ac){
       damage = ((self.str + roll) - target.ac);
       // creates the message
@@ -103,12 +104,32 @@ function char(name, vit, str, dex, int, ac, fury){
   },
 
   self.furiousStrike = function(target){
-      var roll = advantage(20,2);
-      console.log(self.name + ' attacked ' + target.name);
-      console.log('You rolled a ' + roll);
-      var damage = (self.str + roll - target.ac);
-      console.log(damage);
+    var msg = [];
+    var roll = advantage(20,2);
+    var damage;
+    if((self.str + roll) > target.ac){
+      damage = ((self.str + roll) - target.ac);
+      // creates the message
+      msg.push(self.name + ' used' + this);
+      msg.push(self.name + ' attacked ' + target.name);
+      msg.push(self.name + ' rolled a ' + roll);
+      msg.push(self.name + ' dealt ' + damage + ' to ' + target.name)
+      // prints the message to the game board
+      print(msg)
+      target.damage = target.damage + damage;
+    }else if ((self.str + roll) < target.ac){
+      msg.push(self.name + ' attacked ' + target.name + ' and it did no damage');
+      print(msg)
+      console.log(self.name + ' attacked ' + target.name + ' and it did no damage')
+    }
   }
+  // self.furiousStrike = function(target){
+  //     var roll = advantage(20,2);
+  //     console.log(self.name + ' attacked ' + target.name);
+  //     console.log('You rolled a ' + roll);
+  //     var damage = (self.str + roll - target.ac);
+  //     console.log(damage);
+  // }
 }
 
 char.prototype = {
