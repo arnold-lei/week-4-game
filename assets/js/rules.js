@@ -112,6 +112,7 @@ function char(name, vit, str, dex, int, ac, fury){
       setFury(self, '#furyBar');
       target.isDead()
     }else if ((self.str + roll) < target.ac){
+      msg.push(self.name + ' attacked and hit ' + target.name);
       msg.push(self.name + ' attacked ' + target.name + ' and it did no damage');
       clear();
       print(msg);

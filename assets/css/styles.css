@@ -40,11 +40,21 @@
 
 body{
   background-color: #E4E6E3;
+  background-image: url('old_moon.png');
   font-family: '8bitOperatorPlus-Regular';
 }
 
 h1,h2{
   font-family: 'ka1';
+}
+
+.title{
+  margin-bottom: 2em;
+}
+
+
+.playerPortrait{
+  margin-top: 12em;
 }
 
 .messagePanel {
