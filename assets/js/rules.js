@@ -27,18 +27,38 @@ function disadvantage(num, multi){
 
 var inventory = [];
 
-function printStats(obj, selector){
-  for (var prop in obj) {
-    var newLi = $('<li>'+ prop + ' = ' + obj[prop] + '</li>');
-    $(selector).append(newLi);
-  } 
-}
-
-// function generateWeapon(){
-
+// function printStats(obj, selector){
+//   for (var prop in obj) {
+//     var newLi = $('<li>'+ prop + ' = ' + obj[prop]  + '</li>');
+//     $(selector).append(newLi);
+//   } 
 // }
 
-// Player class, all the characters and NPC will use this as a basis of creation
+function printPlayerStats(obj){
+  $('.playerName').html('<h3>' + obj.name + '</h3>');
+  $('.playerLvl').html('lvl: '+ obj.lvl);
+}
+
+function printNpcStats(obj){
+  $('.npcName').html('<h3>' + obj.name + '</h3>');
+  $('.npcLvl').html('lvl: '+ obj.lvl);
+}
+
+function print(message){
+  for (var msg in message){
+    var newDiv = $('<h4>'+ message[msg]+'</h4>');
+    $('.message').append(newDiv);
+  }
+}
+
+var message = $('.message');
+
+function setHealth(char,id ){
+  $(id).css('width', (char.getHealth));
+  $(id).html((char.vit - char.damage) + '/' + char.vit)
+}
+
+// Creates a character object, all the characters and NPC will use this as a basis of creation
 function char(name, vit, str, dex, int, ac, fury){
   var self = this; 
   self.name = name || 'npc';
@@ -48,14 +68,38 @@ function char(name, vit, str, dex, int, ac, fury){
   self.int = int || 3;
   self.ac = ac || 17;
   self.fury = fury || 30;
-  console.log(name, vit, str, dex, int, ac);
+  self.lvl = 1;
+  self.damage = 0;
+  self.currentFury = 0;
+  console.log(char.arguments);
 
-    self.attack = function(target){
-      var roll = d(20);
-      console.log(self.name + ' attacked ' + target.name);
-      console.log('You rolled a ' + roll);
-      var damage = (self.str + roll - target.ac);
-      return damage;
+  self.getHealth = function(){
+    var health = (((self.vit - self.damage)/self.vit) * 100);
+    return health+'%'
+  },
+
+  self.getFury = function(){
+    return ((self.currentFury/self.fury) * 100);
+  },
+
+  self.attack = function(target){
+    var msg = [];
+    var roll = d(20);
+    var damage;
+    if((self.str + roll) > target.ac){
+      damage = ((self.str + roll) - target.ac);
+      // creates the message
+      msg.push(self.name + ' attacked ' + target.name);
+      msg.push(self.name + ' rolled a ' + roll);
+      msg.push(self.name + ' dealt ' + damage + ' to ' + target.name)
+      // prints the message to the game board
+      print(msg)
+      target.damage = target.damage + damage;
+    }else if ((self.str + roll) < target.ac){
+      msg.push(self.name + ' attacked ' + target.name + ' and it did no damage');
+      print(msg)
+      console.log(self.name + ' attacked ' + target.name + ' and it did no damage')
+    }
   },
 
   self.furiousStrike = function(target){
@@ -74,12 +118,5 @@ char.prototype = {
 }
 
 
-
-
-var a = new char('Arnold', d(6), d(6), d(6), d(6), d(6), d(20));
-
-
-
-var b = new char('Jenny', d(6), d(6), d(6), d(6), d(6), d(20));
 
 
