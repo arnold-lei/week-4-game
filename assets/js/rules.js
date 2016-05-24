@@ -50,9 +50,11 @@ function clear(){
 
 var message = $('.message');
 
-function setHealth(char,id ){
-  $(id).css('width', (char.getHealth));
-  $(id).html((char.vit - char.damage) + '/' + char.vit)
+function setHealth(self, target, selfId, targetId){
+  $(selfId).css('width', (self.getHealth));
+  $(selfId).html((self.vit - self.damage) + '/' + self.vit);
+  $(targetId).css('width', (target.getHealth));
+  $(targetId).html((target.vit - target.damage) + '/' + target.vit);
 }
 
 function setFury(char,id ){
@@ -90,7 +92,7 @@ function char(name, vit, str, dex, int, ac, fury){
     var attackRoll = d(20) + self.str;
     var roll = d(20);
     var damage;
-    self.currentFury = self.currentFury + d(6);
+    self.currentFury = self.currentFury + d(4) + 3;
 
     // Attacker misses the target
     if(attackRoll < target.ac){ 
@@ -98,7 +100,7 @@ function char(name, vit, str, dex, int, ac, fury){
       msg.push(self.name + ' rolled a ' + attackRoll);
       msg.push(self.name + ' missed ' + target.name)
       clear();
-      print(msg);
+      print(msg); 
     }
     //Target is able to hit and do damage
     if((self.str + roll) > target.ac){
@@ -108,42 +110,63 @@ function char(name, vit, str, dex, int, ac, fury){
       msg.push(self.name + ' rolled a ' + roll);
       msg.push(self.name + ' dealt ' + damage + ' damage to ' + target.name)
       // prints the message to the game board
-      clear();
-      print(msg);
       target.damage = target.damage + damage;
-      setHealth(target,'#npcHealthBar');
-      setFury(self, '#furyBar');
-      target.isDead()
 
       //Attacker is able to hit but unable to do damage
     }else if ((self.str + roll) < target.ac){
       msg.push(self.name + ' attacked and hit ' + target.name);
       msg.push(self.name + ' attacked ' + target.name + ' and it did no damage');
-      clear();
-      print(msg);
       console.log(self.name + ' attacked ' + target.name + ' and it did no damage')
     }
+    clear();
+    print(msg);
+    setHealth(self, target, '#healthBar' ,'#npcHealthBar');
+    setFury(self, '#furyBar');
+    target.isDead()
   },
 
   self.furiousStrike = function(target){
     var msg = [];
-    var roll = advantage(20,2);
-    var damage;
-    if((self.str + roll) > target.ac){
-      damage = ((self.str + roll) - target.ac);
-      // creates the message
-      msg.push(self.name + ' used Furious Strike!');
-      msg.push(self.name + ' attacked ' + target.name);
-      msg.push(self.name + ' rolled a ' + roll);
-      msg.push(self.name + ' dealt ' + damage + ' to ' + target.name)
-      // prints the message to the game board
-      print(msg)
-      target.damage = target.damage + damage;
-    }else if ((self.str + roll) < target.ac){
-      msg.push(target.name + '\'s armour is too high!');
-      msg.push(self.name + ' attacked ' + target.name + ' and it did no damage');
-      print(msg)
-      console.log(self.name + ' attacked ' + target.name + ' and it did no damage')
+    if(self.currentFury < 5){
+      msg.push(self.name + ' does not have enough fury for this attack ');
+      clear();
+      print(msg);
+
+    } else {
+
+      //Roll to hit
+      var attackRoll = d(20) + self.str;
+      //Roll for damage
+      var roll = advantage(20,2);
+      var damage;
+
+
+      if(attackRoll < target.ac){ 
+        msg.push(self.name + ' attacked ' + target.name);
+        msg.push(self.name + ' rolled a ' + attackRoll);
+        msg.push(self.name + ' missed ' + target.name)
+      }
+
+      if((self.str + roll) > target.ac){
+        damage = ((self.str + roll) - target.ac);
+        // creates the message
+        msg.push(self.name + ' used Furious Strike!');
+        msg.push(self.name + ' attacked ' + target.name);
+        msg.push(self.name + ' rolled a ' + roll);
+        msg.push(self.name + ' dealt ' + damage + ' to ' + target.name)
+        // prints the message to the game board
+        target.damage = target.damage + damage;
+      }else if ((self.str + roll) < target.ac){
+        msg.push(target.name + '\'s armour is too high!');
+        msg.push(self.name + ' attacked ' + target.name + ' and it did no damage');
+        console.log(self.name + ' attacked ' + target.name + ' and it did no damage')
+      }
+      self.currentFury = self.currentFury - 5;
+      clear();
+      print(msg);
+      setHealth(target,'#npcHealthBar');
+      setFury(self, '#furyBar');
+      target.isDead()
     }
   }
 

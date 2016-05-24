@@ -5,6 +5,6 @@ var weapons = {
 
 function PoH(self){
   console.log(self.damage)
-  self.damage = self.damage - (2*d(4) + 2);
+  self.damage = self.damage - (d(4) + d(4) + 2);
    printPlayerStats(self);
 }
