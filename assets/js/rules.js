@@ -91,6 +91,8 @@ function char(name, vit, str, dex, int, ac, fury){
     var roll = d(20);
     var damage;
     self.currentFury = self.currentFury + d(6);
+
+    // Attacker misses the target
     if(attackRoll < target.ac){ 
       msg.push(self.name + ' attacked ' + target.name);
       msg.push(self.name + ' rolled a ' + attackRoll);
@@ -98,6 +100,7 @@ function char(name, vit, str, dex, int, ac, fury){
       clear();
       print(msg);
     }
+    //Target is able to hit and do damage
     if((self.str + roll) > target.ac){
       damage = ((self.str + roll) - target.ac);
       // creates the message
@@ -111,6 +114,8 @@ function char(name, vit, str, dex, int, ac, fury){
       setHealth(target,'#npcHealthBar');
       setFury(self, '#furyBar');
       target.isDead()
+
+      //Attacker is able to hit but unable to do damage
     }else if ((self.str + roll) < target.ac){
       msg.push(self.name + ' attacked and hit ' + target.name);
       msg.push(self.name + ' attacked ' + target.name + ' and it did no damage');
@@ -149,6 +154,11 @@ function char(name, vit, str, dex, int, ac, fury){
       return true;
     }
   }
+  self.useItem = function(itemName){
+    return itemName(self);
+  }
+
+
 }
 
 char.prototype = {
