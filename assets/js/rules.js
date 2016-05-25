@@ -36,12 +36,11 @@ function initiative(player, npc){
   if(playerRoll >= npcRoll){
     highRoll = playerRoll;
     print(player.name + ' goes first');
-    return player.turn = 1;
+    player.turn = 1;
   }else{
     highRoll = npcRoll;
     print(npc.name + ' goes first');
-    hideButtons();
-    return npc.turn = 1;
+    npc.turn = 1;
   }
 }
 
@@ -208,8 +207,7 @@ function char(name, vit, str, dex, int, ac, fury, type){
         target.damage = target.damage + damage;
       }else if ((self.str + roll) < target.ac){
         msg.push(target.name + '\'s armour is too high!');
-        msg.push(self.name + ' attacked ' + target.name + ' and it did no damage');
-        console.log(self.name + ' attacked ' + target.name + ' and it did no damage')
+        msg.push(self.name + ' attacked ' + target.name + ' and it did no damage')
       }
       self.currentFury = self.currentFury - 5;
       clear();
@@ -219,8 +217,19 @@ function char(name, vit, str, dex, int, ac, fury, type){
       target.isDead()
     }
   }
-  function postAttackPhase(target){
- 
+  self.berserk = function(){
+    var msg = [];
+    var roll = d(6)
+    self.damage = self.damage - (roll + self.str);
+    msg.push(self.name + ' used Breserk!');
+    msg.push(self.name + ' rolled a ' + roll); 
+    msg.push(self.name + ' healed ' + (roll + self.str) + ' life'); 
+    self.currentFury = self.currentFury - 10;
+    clear();
+    print(msg);
+    setHealth(self);
+    setFury(self);
+    target.isDead()
   }
   self.isDead = function(){
     if(self.damage >= self.vit){
@@ -239,8 +248,6 @@ function char(name, vit, str, dex, int, ac, fury, type){
     return itemName(self);
     setHealth(self, target, '#healthBar' ,'#npcHealthBar');
   }
-
-
 }
 
 char.prototype = {

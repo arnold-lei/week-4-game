@@ -1,4 +1,6 @@
 
+   
+
   // name, vit, str, dex, int, ac, fury, type 
   var a = new char('Arnold', (d(6) + 30), (d(6)+ 15), (d(6) + 15), (d(6) + 15), (d(6) + 13), (d(6) + 10), 'player') ;
   var b = new char('Wild Troll', (d(6) + 25), (d(6)+ 15), (d(6) + 15), (d(6) + 15), (d(6) + 20), (d(6) + 10));
@@ -13,16 +15,16 @@ function Game(player, npc){
   initiative(player, npc);
   if(npc.turn === 1){
     hideButtons();
-    npcTurn(npc, player)
+    setTimeout(function() {
+          behavior(npc,player)
+      }, 3000);
   }else{
-    showButtons();
+
   }
   npcTurn(npc, player);
 }
 
 
 Game(a,b);
-
-
 
 
