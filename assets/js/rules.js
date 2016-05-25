@@ -50,11 +50,27 @@ function clear(){
 
 var message = $('.message');
 
-function setHealth(self, target, selfId, targetId){
-  $(selfId).css('width', (self.getHealth));
-  $(selfId).html((self.vit - self.damage) + '/' + self.vit);
-  $(targetId).css('width', (target.getHealth));
-  $(targetId).html((target.vit - target.damage) + '/' + target.vit);
+function setHealth(char){
+  if(char.type === 'player'){
+    console.log(char.getHealth)
+    $('#healthBar').css('width', (char.getHealth));
+    $('#healthBar').html((char.vit - char.damage) + '/' + char.vit);
+  }else if (char.type === 'npc'){
+    console.log(char.getHealth)
+    $('#npcHealthBar').css('width', (char.getHealth));
+    $('#npcHealthBar').html((char.vit - char.damage) + '/' + char.vit);    
+  }
+
+}
+
+function setPlayerHealth(player){
+  $('#healthBar').css('width', (player.getHealth));
+  $('#healthBar').html((player.vit - player.damage) + '/' + player.vit);
+}
+
+function setNpcHealth(npc){
+  $('#npcHealthBar').css('width', (npc.getHealth));
+  $('#npcHealthBar').html((npc.vit - npc.damage) + '/' + npc.vit);
 }
 
 function setFury(char,id ){
@@ -63,7 +79,7 @@ function setFury(char,id ){
 }
 
 // !!!!!!!Creates a character object, all the characters and NPC will use this as a basis of creation
-function char(name, vit, str, dex, int, ac, fury){
+function char(name, vit, str, dex, int, ac, fury, type){
   var self = this; 
   self.name = name || 'npc';
   self.vit = vit || 20;
@@ -75,6 +91,7 @@ function char(name, vit, str, dex, int, ac, fury){
   self.lvl = 1;
   self.damage = 0;
   self.currentFury = 0;
+  self.type = type || 'npc'
   console.log(char.arguments);
 
   self.getHealth = function(){
@@ -120,7 +137,7 @@ function char(name, vit, str, dex, int, ac, fury){
     }
     clear();
     print(msg);
-    setHealth(self, target, '#healthBar' ,'#npcHealthBar');
+    setHealth(target);
     setFury(self, '#furyBar');
     target.isDead()
   },
@@ -164,8 +181,7 @@ function char(name, vit, str, dex, int, ac, fury){
       self.currentFury = self.currentFury - 5;
       clear();
       print(msg);
-      setHealth(target,'#npcHealthBar');
-      setFury(self, '#furyBar');
+      setHealth(target);
       target.isDead()
     }
   }
@@ -179,6 +195,7 @@ function char(name, vit, str, dex, int, ac, fury){
   }
   self.useItem = function(itemName){
     return itemName(self);
+    setHealth(self, target, '#healthBar' ,'#npcHealthBar');
   }
 
 

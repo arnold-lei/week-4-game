@@ -7,8 +7,10 @@ The list of features I want for this game is pretty extensive so right now I hav
 ##Goals
 For this project I wanted to create it entirely OOP. I have not done this with JS before so it will be very interesting to see how well it turns out. Right now I am still trying to figure out how classes work in JS and how to use Prototypes. These are all things I'm getting tremedous practice with while building this game. 
 
+I feel like I need to give myself a date to end building the engine. 
+
 ##Icons
 Found this awesome RPG Icon pack here: 
 http://opengameart.org/content/rpg-icon-font 
 
-Definitely really cool, I had no idea what IcoMoon is. Definitely will check them out later
+Definitely really cool, I had no idea what IcoMoon is. Definitely will check them out later.
