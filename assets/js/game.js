@@ -6,19 +6,23 @@
   printNpcStats(b);
   // a.attack(b);
 
-  setPlayerHealth(a)
-  setNpcHealth(b);
-  setFury(a, '#furyBar');
-
-function Game(){
-
-}
-
-
-function monsterBehavior(target){
-  var roll = d(6);
-  if (roll = 1){
-
+function Game(player, npc){
+  setHealth(player);
+  setHealth(npc);
+  setFury(player);
+  initiative(player, npc);
+  if(npc.turn === 1){
+    hideButtons();
+    npcTurn(npc, player)
+  }else{
+    showButtons();
   }
+  npcTurn(npc, player);
 }
+
+
+Game(a,b);
+
+
+
 

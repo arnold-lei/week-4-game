@@ -25,6 +25,28 @@ function disadvantage(num, multi){
   return Math.min(...a);
 }
 
+function initiative(player, npc){
+  var playerRoll = d(6) + player.dex;
+  var npcRoll  = d(6) + npc.dex;
+  console.log(playerRoll, npcRoll);
+  var highRoll;
+  print(player.name + ' rolled a ' + playerRoll + ' for initiative');
+  print(npc.name + ' rolled a ' + npcRoll + ' for initiative');
+
+  if(playerRoll >= npcRoll){
+    highRoll = playerRoll;
+    print(player.name + ' goes first');
+    return player.turn = 1;
+  }else{
+    highRoll = npcRoll;
+    print(npc.name + ' goes first');
+    hideButtons();
+    return npc.turn = 1;
+  }
+}
+
+
+
 var inventory = [];
 
 function printPlayerStats(obj){
@@ -38,9 +60,14 @@ function printNpcStats(obj){
 }
 // Prints to message area
 function print(message){
-  for (var msg in message){
-      var newDiv = $('<h4>'+ message[msg]+'</h4>');
-      $('.message').append(newDiv);
+  if (typeof message === 'object'){
+    for (var msg in message){
+        var newDiv = $('<h4>'+ message[msg]+'</h4>');
+        $('.message').append(newDiv);
+    }
+  }else if (typeof message === 'string'){
+    var newDiv = $('<h4>'+ message+'</h4>');
+    $('.message').append(newDiv); 
   }
 }
 //Clears the message area
@@ -52,13 +79,23 @@ var message = $('.message');
 
 function setHealth(char){
   if(char.type === 'player'){
-    console.log(char.getHealth)
     $('#healthBar').css('width', (char.getHealth));
     $('#healthBar').html((char.vit - char.damage) + '/' + char.vit);
   }else if (char.type === 'npc'){
-    console.log(char.getHealth)
     $('#npcHealthBar').css('width', (char.getHealth));
     $('#npcHealthBar').html((char.vit - char.damage) + '/' + char.vit);    
+  }
+}
+
+function setFury(char){
+  // $(id).css('width', (char.getFury));
+  // $(id).html(char.currentFury + '/' + char.fury);
+    if(char.type === 'player'){
+    $('#furyBar').css('width', (char.getFury));
+    $('#furyBar').html(char.currentFury + '/' + char.fury);
+
+  }else if (char.type === 'npc'){
+
   }
 
 }
@@ -73,10 +110,7 @@ function setNpcHealth(npc){
   $('#npcHealthBar').html((npc.vit - npc.damage) + '/' + npc.vit);
 }
 
-function setFury(char,id ){
-  $(id).css('width', (char.getFury));
-  $(id).html(char.currentFury + '/' + char.fury);
-}
+
 
 // !!!!!!!Creates a character object, all the characters and NPC will use this as a basis of creation
 function char(name, vit, str, dex, int, ac, fury, type){
@@ -138,8 +172,8 @@ function char(name, vit, str, dex, int, ac, fury, type){
     clear();
     print(msg);
     setHealth(target);
-    setFury(self, '#furyBar');
-    target.isDead()
+    setFury(self);
+    target.isDead() 
   },
 
   self.furiousStrike = function(target){
@@ -171,7 +205,6 @@ function char(name, vit, str, dex, int, ac, fury, type){
         msg.push(self.name + ' attacked ' + target.name);
         msg.push(self.name + ' rolled a ' + roll);
         msg.push(self.name + ' dealt ' + damage + ' to ' + target.name)
-        // prints the message to the game board
         target.damage = target.damage + damage;
       }else if ((self.str + roll) < target.ac){
         msg.push(target.name + '\'s armour is too high!');
@@ -182,10 +215,13 @@ function char(name, vit, str, dex, int, ac, fury, type){
       clear();
       print(msg);
       setHealth(target);
+      setFury(self);
       target.isDead()
     }
   }
-
+  function postAttackPhase(target){
+ 
+  }
   self.isDead = function(){
     if(self.damage >= self.vit){
       var msg = [self.name+' got rekt!'];
@@ -193,6 +229,12 @@ function char(name, vit, str, dex, int, ac, fury, type){
       return true;
     }
   }
+  self.notDead = function(){
+    if(self.damage < self.vit){
+      return true;
+    }
+  }
+
   self.useItem = function(itemName){
     return itemName(self);
     setHealth(self, target, '#healthBar' ,'#npcHealthBar');

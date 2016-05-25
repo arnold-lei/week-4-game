@@ -58,6 +58,9 @@ h1,h2{
 .messagePanel {
     border-style: solid;
     border-width: 3px;
+    margin-bottom: 5%;
+    min-height: 200px;
+
 }
 
 .skillBar{
