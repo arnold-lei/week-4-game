@@ -1,5 +1,5 @@
 function behavior(npc, target){
-  showButtons();
+  showButtons('.btn');
   var roll = d(10);
     if (roll >= 9){
       npc.currentFury = 10;
@@ -10,13 +10,15 @@ function behavior(npc, target){
       var msg = npc.name + ' is confused!';
       print(msg);
       npc.attack(npc);
-
     }
+    setHealth(target);
+    setFury(target);
+    target.isDead() 
 }
 
 function npcTurn(b,a){
   $('.btn').click(function() {
-    hideButtons();
+    hideButtons('button');
       var btn =  $(this);
       // btn.prop('disabled', true);
       setTimeout(function() {

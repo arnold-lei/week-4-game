@@ -92,6 +92,16 @@ function setFury(char){
     if(char.type === 'player'){
     $('#furyBar').css('width', (char.getFury));
     $('#furyBar').html(char.currentFury + '/' + char.fury);
+    if(char.currentFury < 5){
+      hideButtons('#furiousStrike')
+    } else {
+      showButtons('#furiousStrike');
+    }
+    if(char.currentFury < 10 ){
+      hideButtons('#breserk')
+    } else {
+      showButtons('#breserk');
+    }
 
   }else if (char.type === 'npc'){
 

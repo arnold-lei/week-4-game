@@ -14,7 +14,7 @@ function Game(player, npc){
   setFury(player);
   initiative(player, npc);
   if(npc.turn === 1){
-    hideButtons();
+    hideButtons('button');
     setTimeout(function() {
           behavior(npc,player)
       }, 3000);
@@ -22,6 +22,11 @@ function Game(player, npc){
 
   }
   npcTurn(npc, player);
+  if(player.isDead()){
+    print(player.name + ' has defeated ' + npc.name);
+  } else if (npc.isDead()){
+   print(player.name + ' has been slain by ' + npc.name); 
+  }
 }
 
 
