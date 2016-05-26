@@ -1,91 +1,95 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Arnold's RPG</title>
-  <script   src="https://code.jquery.com/jquery-2.2.4.js"   integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI="   crossorigin="anonymous"></script>
-
-  <script type="text/javascript" src="assets/js/rules.js"></script>
-  <script type="text/javascript" src="assets/js/ui.js"></script>
-  <script type="text/javascript" src="assets/js/ai.js"></script>
-    
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
-
-  <link rel="stylesheet" type="text/css" href="assets/css/rpg-icons.css">
-
-  <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
+    <title>Arnold's RPG</title>
+    <script src="https://code.jquery.com/jquery-2.2.4.js" integrity="sha256-iT6Q9iMJYuQiMWNd9lDyBUStIq/8PuOW33aOqmvFpqI=" crossorigin="anonymous"></script>
+    <script type="text/javascript" src="assets/js/rules.js"></script>
+    <script type="text/javascript" src="assets/js/ui.js"></script>
+    <script type="text/javascript" src="assets/js/ai.js"></script>
+    <!-- Latest compiled and minified CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/css/bootstrap.min.css" integrity="sha384-1q8mTJOASx8j1Au+a5WDVnPi2lkFfwwEAa8hDDdjZlpLegxhjVME1fgjWPGmkzs7" crossorigin="anonymous">
+    <link rel="stylesheet" type="text/css" href="assets/css/rpg-icons.css">
+    <link rel="stylesheet" type="text/css" href="assets/css/styles.css">
 </head>
+
 <body>
-  <div class="container">
-    <div class="title"><h1><span aria-hidden="true" class="rpg-Icon1_03"></span>
+    <div class="container">
+        <div class="title">
+            <h1><span aria-hidden="true" class="rpg-Icon1_03"></span>
       &nbsp;
       </span>
       D n' D Lite</h1>
-      <iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3510298080/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="http://griffinmcelroy.bandcamp.com/album/the-adventure-zone-the-crystal-kingdom-ost">The Adventure Zone: The Crystal Kingdom OST by Griffin McElroy</a></iframe>
+            <iframe style="border: 0; width: 100%; height: 42px;" src="https://bandcamp.com/EmbeddedPlayer/album=3510298080/size=small/bgcol=ffffff/linkcol=0687f5/transparent=true/" seamless><a href="http://griffinmcelroy.bandcamp.com/album/the-adventure-zone-the-crystal-kingdom-ost">The Adventure Zone: The Crystal Kingdom OST by Griffin McElroy</a></iframe>
+        </div>
+        <div class="row gameBoard">
+            <!-- Player Panel -->
+            <div class="col-md-6">
+                <div class="portrait playerPortrait">
+                    <img src="assets/img/8_bit_knight.png">
+                </div>
+                <div class="playerStats">
+                    <div class="playerName">
+                    </div>
+                    <div class="playerLvl">
+                    </div>
+                </div>
+                HP:
+                <div class="progress">
+                    <div class="progress-bar-danger progress-bar" id="healthBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="">
+                        Health Bar
+                    </div>
+                </div>
+                Fury:
+                <div class="progress">
+                    <div class="progress-bar-warning progress-bar" id="furyBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="">
+                        Fury Bar
+                    </div>
+                </div>
+            </div>
+            <!-- !!!!!!!!!!!!Enemy Panel !!!!!!!!!!!!!-->
+            <div class="col-md-6 ">
+                <div class="npcStats">
+                    <div class="npcName">
+                        <h1>Name</h1>
+                    </div>
+                    <div class="npcLvl">Lvl:
+                    </div>
+                    <div class="npcHP">:HP
+                    </div>
+                </div>
+                <div class="progress">
+                    <div class="progress-bar-danger progress-bar" id="npcHealthBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="width: 10%;">
+                        Health Bar
+                    </div>
+                </div>
+            </div>
+            <div class="portrait npcPortrait pull-right">
+                <img src="assets/img/monster-1.png">
+            </div>
+            <div class="row">
+                <div class="col-md-12 skillBar">
+                    <div class="btn-group  btn-group-lg " role="group" aria-label="..." id="skills">
+                        <button type="button" class="btn btn-default" onclick="a.attack(b)">
+                            <div class="fs1" aria-hidden="true" data-icon="&#xe00a;"></div>Attack</button>
+                        <button type="button" id="furiousStrike" class="btn btn-default" onclick="a.furiousStrike(b)">
+                            <div class="fs1" aria-hidden="true" data-icon="&#xe099;"></div>Furious Strike</button>
+                        <button type="button" id="breserk" class="btn btn-default" onclick="a.defend()">
+                            <div class="fs1" aria-hidden="true" data-icon="&#xe204;"></div>Defend</button>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-md-12 messagePanel">
+                    <div class="message">
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class="row">
-      <!-- Player Panel -->
-      <div class="col-md-6">
-        <div class="portrait playerPortrait">
-          <img src="assets/img/8_bit_knight.png">
-        </div>
-        <div class="playerStats">
-          <div class="playerName">
-          </div>
-          <div class="playerLvl">
-          </div>
-        </div>
-        HP:
-        <div class="progress">
-          <div class="progress-bar-danger progress-bar" id="healthBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="">
-            Health Bar 
-          </div>
-        </div>
-        Fury:
-        <div class="progress">
-          <div class="progress-bar-warning progress-bar" id="furyBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="">
-            Fury Bar
-          </div>
-        </div>
-    </div>
-    <!-- !!!!!!!!!!!!Enemy Panel !!!!!!!!!!!!!-->
-    <div class="col-md-6 ">
-        <div class="npcStats">
-          <div class="npcName"><h1>Name</h1>
-          </div>
-          <div class="npcLvl">Lvl:
-          </div>
-          <div class="npcHP">:HP
-          </div>
-        </div>
-      <div class="progress">
-        <div class="progress-bar-danger progress-bar" id="npcHealthBar" role="progressbar" aria-valuenow="" aria-valuemin="" aria-valuemax="" style="width: 10%;">
-          Health Bar
-        </div>
-      </div>
-    </div>
-    <div class="portrait npcPortrait pull-right">
-      <img src="assets/img/monster-1.png">
-    </div>
-    <div class="row">
-      <div class="col-md-12 skillBar">
-        <div class="btn-group  btn-group-lg " role="group" aria-label="..." id="skills">
-          <button type="button" class="btn btn-default" onclick="a.attack(b)"><div class="fs1" aria-hidden="true" data-icon="&#xe00a;"></div>Attack</button>
-          <button type="button" id="furiousStrike" class="btn btn-default" onclick="a.furiousStrike(b)"><div class="fs1" aria-hidden="true" data-icon="&#xe099;"></div>Furious Strike</button>
-          <button type="button" id="breserk" class="btn btn-default" onclick="a.berserk()"><div class="fs1" aria-hidden="true" data-icon="&#xe01e;"></div>Breserk</button>
-        </div>
-      </div>
-    </div>
-    <div class="row">
-      <div class="col-md-12 messagePanel">
-        <div class="message">
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- Latest compiled and minified JavaScript -->
-  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
-  <script type="text/javascript" src="assets/js/game.js"></script>
+        <!-- Latest compiled and minified JavaScript -->
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.6/js/bootstrap.min.js" integrity="sha384-0mSbJDEHialfmuBBQP6A4Qrprq5OVfW37PRR3j5ELqxss1yVqOtnepnHVP9aJ7xS" crossorigin="anonymous"></script>
+        <script type="text/javascript" src="assets/js/game.js"></script>
 </body>
+
 </html>

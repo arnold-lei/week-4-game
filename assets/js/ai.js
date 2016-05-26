@@ -1,28 +1,33 @@
-function behavior(npc, target){
-  showButtons('.btn');
-  var roll = d(10);
-    if (roll >= 9){
-      npc.currentFury = 10;
-      npc.furiousStrike(target);
-    }else if ( roll >= 3){
-      npc.attack(target)
-    }else{
-      var msg = npc.name + ' is confused!';
-      print(msg);
-      npc.attack(npc);
+function behavior(npc, target) {
+    showButtons('.btn');
+    var roll = d(10);
+    if (roll >= 9) {
+        npc.currentFury = 10;
+        npc.furiousStrike(target);
+    } else if (roll >= 3) {
+        npc.attack(target)
+    } else {
+        var msg = npc.name + ' is confused!';
+        print(msg);
+        npc.attack(npc);
     }
     setHealth(target);
     setFury(target);
-    target.isDead() 
+    target.isDead()
+      
 }
 
-function npcTurn(b,a){
-  $('.btn').click(function() {
-    hideButtons('button');
-      var btn =  $(this);
-      // btn.prop('disabled', true);
-      setTimeout(function() {
-          behavior(b,a)
-      }, 3000);
-  });
+function npcTurn(b, a) {
+    $('.btn').click(function() {
+        hideButtons('button');
+        var btn = $(this);
+        // btn.prop('disabled', true);
+        if (b.isDead()) {
+          print(b.name + ' is dead')
+        } else {
+            setTimeout(function() {
+                behavior(b, a)
+            }, 3000);
+        }
+    });
 }
