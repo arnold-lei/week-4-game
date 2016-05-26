@@ -15,14 +15,26 @@ function printStats(player){
   for(var prop in player){
       if(stats.indexOf(prop) !== -1){
       // var newDiv = $('<li> ' + prop + ':' + ' ' + player[prop]+' </li>')
-      var newDiv = $('<label for="exampleInputName2">'+prop+'</label><input type="text" class="form-control" id="characterName" placeholder="'+ player[prop]+'">')
+      var newDiv = $('<label for="stats">'+prop+'</label><input type="text" class="form-control" id="'+prop+'" value="'+player[prop]+'"placeholder="'+ player[prop]+'">')
       $('.playerStats').append(newDiv);
       }
   }
 }
 
-function charName(a) {
-    var newName = document.getElementById("characterName").value;
-    a.name = newName;
-    printPlayerStats(a)
+function charName(char) {
+    var inputs, stat, value;
+    inputs = document.getElementsByTagName('input');
+    // var newName = document.getElementById("name").value;
+    // a.name = newName;
+    // printPlayerStats(a)
+    for (var i = 0; i < inputs.length; ++i) {
+    stat = inputs[i].id;
+    value = inputs[i].value;
+    char[inputs[i].id] = value;
+    // a.inputs[i].id = inputs[i].value;
+    console.log(char[inputs[i].id], inputs[i].value);
+  }
+  printPlayerStats(char)
+  setHealth(char)
+  setFury(char)
 }
