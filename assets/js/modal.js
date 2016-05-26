@@ -8,13 +8,21 @@ $('#exampleModal').on('show.bs.modal', function (event) {
   modal.find('.modal-body input').val(recipient)
 })
 
+// <input type="text" class="form-control" id="characterName" placeholder="Arnold">
+
 function printStats(player){
-  var stats = ['name', 'vit', 'str', 'dex', 'int', 'ac', 'fury', 'type'];
+  var stats = ['name', 'vit', 'str', 'dex', 'int', 'ac', 'fury'];
   for(var prop in player){
       if(stats.indexOf(prop) !== -1){
-      var newDiv = $('<li> ' + prop + ':' + ' ' + player[prop]+' </li>')
+      // var newDiv = $('<li> ' + prop + ':' + ' ' + player[prop]+' </li>')
+      var newDiv = $('<label for="exampleInputName2">'+prop+'</label><input type="text" class="form-control" id="characterName" placeholder="'+ player[prop]+'">')
       $('.playerStats').append(newDiv);
       }
   }
 }
 
+function charName(a) {
+    var newName = document.getElementById("characterName").value;
+    a.name = newName;
+    printPlayerStats(a)
+}

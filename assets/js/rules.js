@@ -62,7 +62,7 @@ function print(message) {
     if (typeof message === 'object') {
         for (var msg in message) {
             var newDiv = $('<h4>' + message[msg] + '</h4>');
-            $('.message').append(newDiv);
+            setTimeout($('.message').append(newDiv),3000);
         }
     } else if (typeof message === 'string') {
         var newDiv = $('<h4>' + message + '</h4>');
