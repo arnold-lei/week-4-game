@@ -7,6 +7,7 @@
 
 function Game(player, npc){
   var currentTurn = 0;
+  printStats(player)
   setHealth(player);
   setHealth(npc);
   setFury(player);
