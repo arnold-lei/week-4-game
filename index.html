@@ -105,15 +105,16 @@
             <div class="row">
                 <div class="col-md-12 skillBar">
                     <div class="btn-group  btn-group-lg " role="group" aria-label="..." id="skills">
-                        <button type="button" class="btn btn-default attackButtons" onclick="a.attack(b)">
+                        <button type="button" class="btn btn-default attackButtons" onclick="a.attack(b)" data-toggle="tooltip" data-placement="top" title="Attack: Your opponent take damage equal to D6 + you character's strength ">
                             <div class="fs1" aria-hidden="true" data-icon="&#xe00a;"></div>Attack</button>
-                        <button type="button" id="furiousStrike" class="btn btn-default attackButtons" onclick="a.furiousStrike(b)">
+                        <button type="button" id="furiousStrike" class="btn btn-default attackButtons" onclick="a.furiousStrike(b)" onclick="a.attack(b)" data-toggle="tooltip" data-placement="top" title="Furious Strike: You strike your opponent for D20 + Character strength damage. You have advantage on your roll. This move costs 5 Fury.">
                             <div class="fs1" aria-hidden="true" data-icon="&#xe099;"></div>Furious Strike</button>
-                        <button type="button" id="breserk" class="btn btn-default attackButtons" onclick="a.defend()">
+                        <button type="button" id="defend" class="btn btn-default attackButtons" onclick="a.defend(b)" data-toggle="tooltip" data-placement="top" title="Defend: You increase your defense by D6 + Character strength. This move costs 5 Fury.">
                             <div class="fs1" aria-hidden="true" data-icon="&#xe204;"></div>Defend</button>
                     </div>
                 </div>
             </div>
+
             <div class="row">
                 <div class="col-md-12 messagePanel">
                     <div class="message">

@@ -97,10 +97,10 @@ function setFury(char) {
         } else {
             showButtons('#furiousStrike');
         }
-        if (char.currentFury < 10) {
-            hideButtons('#breserk')
+        if (char.currentFury < 5) {
+            hideButtons('#defend')
         } else {
-            showButtons('#breserk');
+            showButtons('#defend');
         }
 
     } else if (char.type === 'npc') {
@@ -153,10 +153,11 @@ function char(name, vit, str, dex, int, ac, fury, type) {
 
         self.attack = function(target) {
             var msg = [];
-            var attackRoll = d(20) + self.str;
+            var attackRoll = d(6) + self.str;
             var roll = d(20);
             var damage;
-            self.currentFury = self.currentFury + d(4) + 3;
+            var miss = false
+            self.currentFury = self.currentFury + d(4) + 2;
 
             // Attacker misses the target
             if (attackRoll < target.ac) {
@@ -165,9 +166,11 @@ function char(name, vit, str, dex, int, ac, fury, type) {
                 msg.push(self.name + ' missed ' + target.name)
                 clear();
                 print(msg);
+                miss = true;
             }
+
             //Target is able to hit and do damage
-            if ((self.str + roll) > target.ac) {
+            if ((self.str + roll) > target.ac && miss == false) {
                 damage = ((self.str + roll) - target.ac);
                 // creates the message
                 msg.push(self.name + ' attacked ' + target.name);
@@ -203,15 +206,16 @@ function char(name, vit, str, dex, int, ac, fury, type) {
                 //Roll for damage
                 var roll = advantage(20, 2);
                 var damage;
-
+                var miss = false;
 
                 if (attackRoll < target.ac) {
                     msg.push(self.name + ' attacked ' + target.name);
                     msg.push(self.name + ' rolled a ' + attackRoll);
                     msg.push(self.name + ' missed ' + target.name)
+                    miss = true
                 }
 
-                if ((self.str + roll) > target.ac) {
+                if ((self.str + roll) > target.ac && miss == false) {
                     damage = ((self.str + roll) - target.ac);
                     // creates the message
                     msg.push(self.name + ' used Furious Strike!');
@@ -231,7 +235,7 @@ function char(name, vit, str, dex, int, ac, fury, type) {
                 target.isDead()
             }
         }
-    self.defend = function(){
+    self.defend = function(target){
         var msg = [];
         var roll = d(6);
         var def = roll + self.str;
@@ -239,10 +243,11 @@ function char(name, vit, str, dex, int, ac, fury, type) {
         msg.push(self.name + ' used Defend!');
         msg.push(self.name + ' rolled a ' + roll);
         msg.push(self.name + ' has increased his armour by ' + def);
-        self.currentFury = self.currentFury - 10;
+        self.currentFury = self.currentFury - 5;
         clear();
         print(msg);
         setHealth(target);
+        setHealth(self);
         setFury(self);
         target.isDead()
     }

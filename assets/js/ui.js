@@ -9,4 +9,20 @@ function showButtons(id){
   $(id).attr('disabled', '');
   $(id).prop('disabled', false);
 }
+$(function () {
+  $('[data-toggle="tooltip"]').tooltip()
+})
 
+
+$('.attackButtons').click(function() {
+      hideButtons('.btn');
+      var btn = $(this);
+      // btn.prop('disabled', true);
+      if (b.isDead()) {
+        print(b.name + ' is dead')
+      } else {
+          setTimeout(function() {
+              behavior(b, a)
+          }, 3000);
+      }
+  });

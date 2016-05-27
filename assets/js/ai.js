@@ -19,7 +19,7 @@ function behavior(npc, target) {
 
 function npcTurn(b, a) {
     $('.attackButtons').click(function() {
-        hideButtons('.attackButtons');
+        hideButtons('.btn');
         var btn = $(this);
         // btn.prop('disabled', true);
         if (b.isDead()) {
