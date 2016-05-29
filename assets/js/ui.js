@@ -15,7 +15,7 @@ $(function () {
 
 
 $('.attackButtons').click(function() {
-      hideButtons('.btn');
+      hideButtons('.attackButtons');
       var btn = $(this);
       // btn.prop('disabled', true);
       if (b.isDead()) {

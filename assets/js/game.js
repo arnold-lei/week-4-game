@@ -7,18 +7,14 @@
 
 function Game(player, npc){
   var currentTurn = 0;
-  printStats(player)
+  printStats(player);
   setHealth(player);
   setHealth(npc);
   setFury(player);
   initiative(player, npc);
   if(npc.turn === 1){
     hideButtons('.btn');
-    setTimeout(function() {
-          behavior(npc,player)
-      }, 3000);
-  }else{
-
+    setTimeout(behavior(npc,player), 3000);
   }
   npcTurn(npc, player);
   if(player.isDead()){
@@ -31,4 +27,13 @@ function Game(player, npc){
 
 Game(a,b);
 
-
+    $('.attackButtons').click(function() {
+        hideButtons('.btn');
+        var btn = $(this);
+        // btn.prop('disabled', true);
+        if (b.isDead()) {
+          print(b.name + ' is dead')
+        } else {
+            setTimeout(behavior(b, a), 3000);
+        }
+    });

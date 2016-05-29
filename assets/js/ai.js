@@ -13,7 +13,7 @@ function behavior(npc, target) {
     }
     setHealth(target);
     setFury(target);
-    target.isDead()
+    target.isDead();
       
 }
 
@@ -25,9 +25,7 @@ function npcTurn(b, a) {
         if (b.isDead()) {
           print(b.name + ' is dead')
         } else {
-            setTimeout(function() {
-                behavior(b, a)
-            }, 3000);
+            setTimeout(behavior(b, a), 3000);
         }
     });
 }
